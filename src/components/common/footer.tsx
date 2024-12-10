@@ -9,24 +9,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 mb-6">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-white"
-              >
-                <path d="M6.141 4.163C3.897 5.288 3 7.331 3 9v10l2 2h14l2-2V9c0-1.669-.897-3.712-3.141-4.837C15.618 2.954 13.402 2 12.004 2c-1.398 0-3.618.954-5.863 2.163z" />
-              </svg>
-              <span className="font-bold text-xl">
-                <span className="text-white">WAB</span>
-                <span className="text-[#95D5B2]">AIS</span>
-              </span>
+              <img src="/logo.svg" />
             </div>
             <h3 className="text-lg font-semibold mb-4">
               Subscribe to our news letter

@@ -18,24 +18,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full bg-[#fbfffc]">
       <div className="container flex h-16 items-center justify-between px-4 md:px-6 mx-auto">
         <Link href="/" className="flex items-center gap-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-[#1B4332]"
-          >
-            <path d="M6.141 4.163C3.897 5.288 3 7.331 3 9v10l2 2h14l2-2V9c0-1.669-.897-3.712-3.141-4.837C15.618 2.954 13.402 2 12.004 2c-1.398 0-3.618.954-5.863 2.163z" />
-          </svg>
-          <span className="font-bold text-xl">
-            <span className="text-[#1B4332]">WAB</span>
-            <span className="text-[#95D5B2]">AIS</span>
-          </span>
+          <img src="/logo.svg" />
         </Link>
 
         {/* Desktop Navigation */}
