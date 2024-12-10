@@ -1,11 +1,3 @@
-import {
-  Users,
-  Building2,
-  Clock,
-  Network,
-  UserSquare2,
-  Globe2,
-} from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import MicroHeading from "../common/micro-heading";
 

@@ -16,7 +16,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import MicroHeading from "../common/micro-heading";
 
 const faqs = [
   {
