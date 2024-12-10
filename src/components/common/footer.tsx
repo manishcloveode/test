@@ -18,11 +18,11 @@ export default function Footer() {
               <Input
                 type="email"
                 placeholder="Enter your email address"
-                className="bg-white/10 w-2/3 rounded-3xl border border-site-green"
+                className="bg-white/10 w-2/3 rounded-2xl border border-site-green py-6 text-white"
               />
               <Button
                 variant="site-green"
-                className="text-xl py-6 px-5 shadow-2xl shadow-[#0C71334F] w-fit"
+                className="text-xl py-6 px-10 shadow-2xl shadow-[#0C71334F] w-fit"
               >
                 Submit
               </Button>
@@ -117,7 +117,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10">
-          <p className="text-sm text-gray-400 mb-4 md:mb-0">
+          <p className="text-sm text-gray-400 mb-4 md:mb-0 font-sofia">
             Copyright@wabais2024
           </p>
           <div className="flex gap-4">

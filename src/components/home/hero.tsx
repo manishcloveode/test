@@ -9,21 +9,21 @@ export default function Hero() {
       <div className="relative min-h-[60vh] md:min-h-[80vh] flex items-center justify-center px-4  container mx-auto">
         {/* Left Side */}
 
-        <Badge className="absolute hidden md:flex left-4 top-28 md:left-52 items-center gap-2 font-sofia text-lg rounded-3xl py-2 bg-transparent border border-site-green text-site-green hover:bg-transparent">
+        <Badge className="animate-wiggle absolute hidden md:flex top-[8%] left-[10%] items-center gap-2 font-sofia text-lg rounded-3xl py-2 bg-transparent border border-site-green text-site-green hover:bg-transparent">
           <span className="bg-site-green text-white rounded-full p-1">
             <Check className="h-4 w-4" />
           </span>
           Seamless Integration
         </Badge>
 
-        <Badge className="absolute hidden md:flex left-4 top-80 md:left-10 items-center gap-2 font-sofia text-lg rounded-3xl py-2 bg-transparent border border-site-green text-site-green hover:bg-transparent">
+        <Badge className="animate-wiggle absolute hidden md:flex top-[40%] left-[0%] items-center gap-2 font-sofia text-lg rounded-3xl py-2 bg-transparent border border-site-green text-site-green hover:bg-transparent">
           <span className="bg-site-green text-white rounded-full p-1">
             <Check className="h-4 w-4" />
           </span>
           Chat bot
         </Badge>
 
-        <Badge className="absolute hidden md:flex left-4 bottom-20 md:left-52 items-center gap-2 font-sofia text-lg rounded-3xl py-2 bg-transparent border border-site-green text-site-green hover:bg-transparent">
+        <Badge className="animate-wiggle absolute hidden md:flex bottom-[2%] left-[3%] items-center gap-2 font-sofia text-lg rounded-3xl py-2 bg-transparent border border-site-green text-site-green hover:bg-transparent">
           <span className="bg-site-green text-white rounded-full p-1">
             <Check className="h-4 w-4" />
           </span>
@@ -32,21 +32,21 @@ export default function Hero() {
 
         {/* Right Side */}
 
-        <Badge className="absolute hidden md:flex right-4 top-32 md:right-52 items-center gap-2 font-sofia text-lg rounded-3xl py-2 bg-transparent border border-site-green text-site-green hover:bg-transparent">
+        <Badge className="animate-wiggle absolute hidden md:flex top-[8%] right-[3%] items-center gap-2 font-sofia text-lg rounded-3xl py-2 bg-transparent border border-site-green text-site-green hover:bg-transparent">
           <span className="bg-site-green text-white rounded-full p-1">
             <Check className="h-4 w-4" />
           </span>
           Trusted by Leading Businesses
         </Badge>
 
-        <Badge className="absolute hidden md:flex right-4 top-80 md:right-40 items-center gap-2 font-sofia text-lg rounded-3xl py-2 bg-transparent border border-site-green text-site-green hover:bg-transparent">
+        <Badge className="animate-wiggle absolute hidden md:flex top-[40%] right-[1%] items-center gap-2 font-sofia text-lg rounded-3xl py-2 bg-transparent border border-site-green text-site-green hover:bg-transparent">
           <span className="bg-site-green text-white rounded-full p-1">
             <Check className="h-4 w-4" />
           </span>
           User-Friendly
         </Badge>
 
-        <Badge className="absolute hidden md:flex right-4 bottom-20 md:right-52 items-center gap-2 font-sofia text-lg rounded-3xl py-2 bg-transparent border border-site-green text-site-green hover:bg-transparent">
+        <Badge className="animate-wiggle absolute hidden md:flex bottom-[2%] right-[1%] md:right-52 items-center gap-2 font-sofia text-lg rounded-3xl py-2 bg-transparent border border-site-green text-site-green hover:bg-transparent">
           <span className="bg-site-green text-white rounded-full p-1">
             <Check className="h-4 w-4" />
           </span>

@@ -1,151 +1,164 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import {
-  Engine,
-  Render,
-  World,
-  Bodies,
-  // Body,
-  Mouse,
-  MouseConstraint,
-  IRendererOptions,
-} from "matter-js";
-import { Badge } from "@/components/ui/badge";
+import { gsap } from "gsap";
+import { Draggable } from "gsap/Draggable";
+import MicroHeading from "../common/micro-heading";
+
+gsap.registerPlugin(Draggable);
 
 const InteractiveIntegrationLayout = () => {
-  const sceneRef = useRef<HTMLDivElement>(null);
-  const engineRef = useRef(Engine.create());
-  const renderRef = useRef<Render | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const badgesRef = useRef<HTMLDivElement[]>([]);
 
-  // Define your integration items
   const integrationItems = [
-    { text: "Chat Bot", color: "bg-pink-400" },
-    { text: "WhatsApp", color: "bg-green-300" },
+    { text: "Chat Bot", color: "bg-pink-300" },
+    { text: "WhatsApp", color: "bg-green-200" },
     { text: "Lead generation", color: "bg-yellow-200" },
-    { text: "E-commerce", color: "bg-purple-300" },
-    { text: "Schedule Broadcast", color: "bg-fuchsia-400" },
+    { text: "E-commerce", color: "bg-purple-200" },
+    { text: "Schedule Broadcast", color: "bg-fuchsia-300" },
     { text: "Customer support", color: "bg-yellow-200" },
-    { text: "Marketing Automation", color: "bg-purple-300" },
+    { text: "Marketing Automation", color: "bg-purple-200" },
     { text: "Send Offers", color: "bg-emerald-800" },
-    { text: "Analytics Integration", color: "bg-emerald-400" },
-    { text: "CRM Integration", color: "bg-pink-200" },
-    { text: "Help Desk Integration", color: "bg-green-400" },
-    { text: "Send Promotion", color: "bg-emerald-400" },
-    { text: "Customer Engagement", color: "bg-emerald-600" },
+    { text: "Analytics Integration", color: "bg-pink-300" },
+    { text: "CRM Integration", color: "bg-pink-100" },
+    { text: "Help Desk Integration", color: "bg-green-300" },
+    { text: "Send Promotion", color: "bg-emerald-300" },
+    { text: "Customer Engagement", color: "bg-emerald-800" },
   ];
 
   useEffect(() => {
-    if (!sceneRef.current) return;
+    if (!containerRef.current) return;
 
-    // Create engine
-    const engine = engineRef.current;
-    engine.gravity.y = 0.5;
+    const container = containerRef.current;
+    const containerBounds = container.getBoundingClientRect();
+    const badges = badgesRef.current;
 
-    // Create renderer
-    const render = Render.create({
-      element: sceneRef.current,
-      engine: engine,
-      options: {
-        width: 800,
-        height: 400,
-        wireframes: false,
-        background: "transparent",
-      } as IRendererOptions,
-    });
+    badges.forEach((badge, index) => {
+      const badgeHeight = badge.offsetHeight;
+      const badgeWidth = badge.offsetWidth;
+      const initialX = Math.random() * (containerBounds.width - badgeWidth);
 
-    renderRef.current = render;
+      // Set initial position
+      gsap.set(badge, {
+        x: initialX,
+        y: -badgeHeight,
+        zIndex: 1, // Start with a base zIndex
+      });
 
-    // Create bounds
-    const ground = Bodies.rectangle(400, 410, 810, 60, {
-      isStatic: true,
-      render: { fillStyle: "transparent" },
-    });
-    const leftWall = Bodies.rectangle(-10, 200, 60, 400, {
-      isStatic: true,
-      render: { fillStyle: "transparent" },
-    });
-    const rightWall = Bodies.rectangle(810, 200, 60, 400, {
-      isStatic: true,
-      render: { fillStyle: "transparent" },
-    });
+      // Animate badges falling to the bottom
+      gsap.to(badge, {
+        y: containerBounds.height - badgeHeight - 10,
+        duration: 2,
+        delay: index * 0.1,
+        ease: "bounce.out",
+        onUpdate: () => enforceBounds(badge, containerBounds),
+      });
 
-    // Add badges as physics bodies
-    const badges = integrationItems.map((item, index) => {
-      const x = 100 + index * 50;
-      const y = -50 - index * 50;
-      return Bodies.rectangle(x, y, 120, 40, {
-        restitution: 0.8,
-        friction: 0.005,
-        render: {
-          fillStyle: "transparent",
+      // Enable dragging for badges
+      Draggable.create(badge, {
+        type: "x,y",
+        edgeResistance: 0.65,
+        bounds: container,
+        inertia: true,
+        onDrag: () => resolveCollisions(badge, badges),
+        onThrowUpdate: () => resolveCollisions(badge, badges),
+        onDragEnd: () => {
+          // Animate the badge falling to the bottom after release
+          gsap.to(badge, {
+            y: containerBounds.height - badgeHeight - 10,
+            duration: 1,
+            ease: "bounce.out",
+          });
         },
-        label: item.text,
       });
     });
 
-    // Add mouse control
-    const mouse = Mouse.create(render.canvas);
-    const mouseConstraint = MouseConstraint.create(engine, {
-      mouse: mouse,
-      constraint: {
-        stiffness: 0.2,
-        render: {
-          visible: false,
-        },
-      },
-    });
+    // Collision and stacking logic
+    const resolveCollisions = (
+      currentBadge: HTMLDivElement,
+      badges: HTMLDivElement[]
+    ) => {
+      const currentRect = currentBadge.getBoundingClientRect();
 
-    World.add(engine.world, [
-      ground,
-      leftWall,
-      rightWall,
-      ...badges,
-      mouseConstraint,
-    ]);
+      badges.forEach((otherBadge) => {
+        if (currentBadge === otherBadge) return;
 
-    Engine.run(engine);
-    Render.run(render);
+        const otherRect = otherBadge.getBoundingClientRect();
+        if (isColliding(currentRect, otherRect)) {
+          const overlapY = currentRect.bottom - otherRect.top;
+          if (overlapY > 0) {
+            // Prevent badges from overlapping visually and stack them on top
+            gsap.to(currentBadge, {
+              y: `-=${overlapY}`, // Move current badge up to avoid overlap
+              duration: 0.2,
+            });
+            // Update zIndex to ensure the badge on top stays in front
+            gsap.to(currentBadge, {
+              zIndex: Math.max(
+                parseInt(currentBadge.style.zIndex || "1", 10) + 1,
+                parseInt(otherBadge.style.zIndex || "1", 10) + 1
+              ),
+              duration: 0.2,
+            });
+          }
+        }
+      });
+    };
 
-    // Cleanup function
-    return () => {
-      if (render) {
-        Render.stop(render);
-        render.canvas.remove();
+    // Enforce container bounds during animation
+    const enforceBounds = (badge: HTMLDivElement, containerBounds: DOMRect) => {
+      const badgeRect = badge.getBoundingClientRect();
+
+      if (badgeRect.bottom > containerBounds.bottom) {
+        gsap.to(badge, {
+          y: containerBounds.height - badge.offsetHeight - 10,
+          duration: 0.2,
+        });
       }
-      World.clear(engine.world, true);
-      Engine.clear(engine);
+      if (badgeRect.top < containerBounds.top) {
+        gsap.to(badge, { y: 10, duration: 0.2 });
+      }
+      if (badgeRect.left < containerBounds.left) {
+        gsap.to(badge, { x: 10, duration: 0.2 });
+      }
+      if (badgeRect.right > containerBounds.right) {
+        gsap.to(badge, {
+          x: containerBounds.width - badge.offsetWidth - 10,
+          duration: 0.2,
+        });
+      }
+    };
+
+    // Check if two elements are colliding
+    const isColliding = (rect1: DOMRect, rect2: DOMRect) => {
+      return !(
+        rect1.right < rect2.left ||
+        rect1.left > rect2.right ||
+        rect1.bottom < rect2.top ||
+        rect1.top > rect2.bottom
+      );
     };
   }, []);
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-8">
-      <div className="text-center mb-8">
-        <p className="text-sm text-gray-500 mb-2">« SEAMLESS INTEGRATION »</p>
-        <h2 className="text-3xl font-bold text-emerald-800">
-          Effortless Integration with
-          <br />
-          Your Trusted Tools
+    <div className="w-full container mx-auto p-8">
+      <MicroHeading text="Seamless integration" />
+      <div className="text-center mb-12 mt-6 max-w-2xl mx-auto">
+        <h2 className="text-3xl md:text-5xl font-bold text-[#1B4332] font-vesper">
+          Effortless Integration with Your Trusted Tools
         </h2>
       </div>
 
-      {/* Physics canvas container */}
-      <div ref={sceneRef} className="w-full h-[400px] relative">
-        {/* Overlay the actual badges on top of physics bodies */}
+      <div ref={containerRef} className="w-full h-[500px] relative">
         {integrationItems.map((item, index) => (
           <div
             key={index}
-            className="absolute pointer-events-none"
-            style={{
-              transform: `translate(-50%, -50%)`,
-              left: `${100 + index * 50}px`,
-              top: `${-50 - index * 50}px`,
+            ref={(el) => {
+              if (el) badgesRef.current[index] = el;
             }}
+            className={`absolute ${item.color} text-black px-6 py-2 rounded-full shadow-sm  text-sm cursor-pointer overflow-hidden `}
           >
-            <Badge
-              className={`${item.color} text-black px-4 py-2 rounded-full shadow-sm`}
-            >
-              {item.text}
-            </Badge>
+            {item.text}
           </div>
         ))}
       </div>
