@@ -141,13 +141,19 @@ export default function Footer() {
             <a href="#" className="hover:text-[#95D5B2]">
               <Facebook className="w-5 h-5" />
             </a>
-            <a href="#" className="hover:text-[#95D5B2]">
+            <a href="https://x.com/wabais_" className="hover:text-[#95D5B2]">
               <Twitter className="w-5 h-5" />
             </a>
-            <a href="#" className="hover:text-[#95D5B2]">
+            <a
+              href="https://www.facebook.com/wabais"
+              className="hover:text-[#95D5B2]"
+            >
               <Linkedin className="w-5 h-5" />
             </a>
-            <a href="#" className="hover:text-[#95D5B2]">
+            <a
+              href="https://instagram.com/wabais"
+              className="hover:text-[#95D5B2]"
+            >
               <Instagram className="w-5 h-5" />
             </a>
           </div>
