@@ -80,7 +80,6 @@ const Integrations: React.FC = () => {
       },
     });
 
-    // Create 18 boxes with custom colors and random text
     const boxes = Array.from({ length: 18 }).map((_, index) => {
       const randomX = Math.random() * 900 + 50;
       const randomY = Math.random() * 300 + 50;
@@ -132,37 +131,29 @@ const Integrations: React.FC = () => {
 
     World.add(engine.world, [...boxes, ...walls]);
 
-    // Draw text on the canvas using Matter.js render hooks
     Events.on(render, "afterRender", () => {
       const context = render.context;
-      context.font = "16px 'Sofia Sans', sans-serif"; // Use Sofia Sans font
+      context.font = "16px 'Sofia Sans', sans-serif";
       context.fillStyle = "black";
       context.textAlign = "center";
       context.textBaseline = "middle";
 
-      // Draw the text for each box, ensuring the text stays horizontal
       boxes.forEach((box) => {
         const { x, y } = box.position;
         const angle = box.angle;
 
-        // Save the current context to restore it after drawing the text
         context.save();
 
-        // Translate the context to the box's position
         context.translate(x, y);
 
-        // Rotate the context so the text stays horizontal despite the box's angle
         context.rotate(angle);
 
-        // Draw the text (it will be horizontally aligned)
         context.fillText(box.label, 0, 0);
 
-        // Restore the context to prevent further transformations
         context.restore();
       });
     });
 
-    // Add mouse control for interaction
     const mouse = Mouse.create(render.canvas);
     const mouseConstraint = MouseConstraint.create(engine, {
       mouse,
@@ -173,23 +164,19 @@ const Integrations: React.FC = () => {
     });
     World.add(engine.world, mouseConstraint);
 
-    // Run the engine and renderer
     const runner = Runner.create();
     Runner.run(runner, engine);
     Render.run(render);
 
-    // Cleanup on unmount
     const canvas = sceneRef.current.querySelector("canvas");
     const handleWheel = (e: WheelEvent) => {
-      e.stopPropagation(); // Prevent blocking scroll
+      e.stopPropagation();
     };
 
-    // Add event listener for wheel events on the canvas
     if (canvas) {
       canvas.addEventListener("wheel", handleWheel, { passive: true });
     }
 
-    // Cleanup on unmount
     return () => {
       if (canvas) {
         canvas.removeEventListener("wheel", handleWheel);
@@ -212,11 +199,7 @@ const Integrations: React.FC = () => {
           </h2>
         </div>
         <div className="flex items-center justify-center">
-          <div
-            ref={sceneRef}
-            className="mx-auto"
-            style={{ height: "400px" }} // Set the height here
-          />
+          <div ref={sceneRef} className="mx-auto" style={{ height: "400px" }} />
         </div>
       </div>
     </section>
