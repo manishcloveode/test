@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/common/navbar";
 import Footer from "@/components/common/footer";
@@ -15,11 +14,6 @@ const sofiaSans = Sofia_Sans({
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-sofia-sans",
 });
-
-export const metadata: Metadata = {
-  title: "Wabais",
-  description: "",
-};
 
 export default function RootLayout({
   children,

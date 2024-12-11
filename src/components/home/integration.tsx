@@ -1,169 +1,226 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { Draggable } from "gsap/Draggable";
+import {
+  Engine,
+  Render,
+  World,
+  Bodies,
+  Runner,
+  Mouse,
+  MouseConstraint,
+  Events,
+  IChamfer,
+} from "matter-js";
 import MicroHeading from "../common/micro-heading";
+import { isMobile } from "react-device-detect";
 
-gsap.registerPlugin(Draggable);
+const colors = [
+  "#F9FFC9",
+  "#84DCC6",
+  "#B1FFCF",
+  "#37FF8B",
+  "#FF9BE6",
+  "#64B6AC",
+  "#C3B5FF",
+  "#FFE0D5",
+  "#8377D1",
+  "#D2691E",
+  "#FF8552",
+  "#F4FF94",
+  "#51D6FF",
+  "#EF476F",
+  "#F1DAC4",
+  "#FF686B",
+  "#8EF9F3",
+];
 
-const InteractiveIntegrationLayout = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const badgesRef = useRef<HTMLDivElement[]>([]);
-
-  const integrationItems = [
-    { text: "Chat Bot", color: "bg-pink-300" },
-    { text: "WhatsApp", color: "bg-green-200" },
-    { text: "Lead generation", color: "bg-yellow-200" },
-    { text: "E-commerce", color: "bg-purple-200" },
-    { text: "Schedule Broadcast", color: "bg-fuchsia-300" },
-    { text: "Customer support", color: "bg-yellow-200" },
-    { text: "Marketing Automation", color: "bg-purple-200" },
-    { text: "Send Offers", color: "bg-emerald-800" },
-    { text: "Analytics Integration", color: "bg-pink-300" },
-    { text: "CRM Integration", color: "bg-pink-100" },
-    { text: "Help Desk Integration", color: "bg-green-300" },
-    { text: "Send Promotion", color: "bg-emerald-300" },
-    { text: "Customer Engagement", color: "bg-emerald-800" },
+const generateRandomText = () => {
+  const randomWords = [
+    "Chat Bot",
+    "Lead generation",
+    "E-commerce",
+    "WhatsApp",
+    "Analytic Integration",
+    "Lead generation",
+    "E-commerce",
+    "CRM integration",
+    "Schedule Broadcast",
+    "Help Desk integration",
+    "Lead generation",
+    "Customer support",
+    "Send Promotion",
+    "Marketing Automation",
+    "Chat Bot",
+    "Customer Engagement",
+    "Schedule Broadcast",
   ];
+  return randomWords[Math.floor(Math.random() * randomWords.length)];
+};
+
+const Integrations: React.FC = () => {
+  const sceneRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!sceneRef.current) return;
 
-    const container = containerRef.current;
-    const containerBounds = container.getBoundingClientRect();
-    const badges = badgesRef.current;
+    const engine = Engine.create();
 
-    badges.forEach((badge, index) => {
-      const badgeHeight = badge.offsetHeight;
-      const badgeWidth = badge.offsetWidth;
-      const initialX = Math.random() * (containerBounds.width - badgeWidth);
+    engine.world.gravity.y = 1;
 
-      // Set initial position
-      gsap.set(badge, {
-        x: initialX,
-        y: -badgeHeight,
-        zIndex: 1, // Start with a base zIndex
-      });
+    const render = Render.create({
+      element: sceneRef.current,
+      engine,
+      options: {
+        width: isMobile
+          ? window.innerWidth * (90 / 100)
+          : window.innerWidth * (60 / 100),
+        height: 400,
+        wireframes: false,
+        background: "#fff",
+      },
+    });
 
-      // Animate badges falling to the bottom
-      gsap.to(badge, {
-        y: containerBounds.height - badgeHeight - 10,
-        duration: 2,
-        delay: index * 0.1,
-        ease: "bounce.out",
-        onUpdate: () => enforceBounds(badge, containerBounds),
-      });
+    // Create 18 boxes with custom colors and random text
+    const boxes = Array.from({ length: 18 }).map((_, index) => {
+      const randomX = Math.random() * 900 + 50;
+      const randomY = Math.random() * 300 + 50;
+      const randomText = generateRandomText();
+      const boxColor = colors[index % colors.length];
 
-      // Enable dragging for badges
-      Draggable.create(badge, {
-        type: "x,y",
-        edgeResistance: 0.65,
-        bounds: container,
-        inertia: true,
-        onDrag: () => resolveCollisions(badge, badges),
-        onThrowUpdate: () => resolveCollisions(badge, badges),
-        onDragEnd: () => {
-          // Animate the badge falling to the bottom after release
-          gsap.to(badge, {
-            y: containerBounds.height - badgeHeight - 10,
-            duration: 1,
-            ease: "bounce.out",
-          });
+      return Bodies.rectangle(randomX, randomY, 170, 40, {
+        restitution: 0.5,
+        chamfer: 20 as IChamfer,
+        render: {
+          fillStyle: boxColor,
+          strokeStyle: "transparent",
+          lineWidth: 3,
         },
+        label: randomText,
       });
     });
 
-    // Collision and stacking logic
-    const resolveCollisions = (
-      currentBadge: HTMLDivElement,
-      badges: HTMLDivElement[]
-    ) => {
-      const currentRect = currentBadge.getBoundingClientRect();
-
-      badges.forEach((otherBadge) => {
-        if (currentBadge === otherBadge) return;
-
-        const otherRect = otherBadge.getBoundingClientRect();
-        if (isColliding(currentRect, otherRect)) {
-          const overlapY = currentRect.bottom - otherRect.top;
-          if (overlapY > 0) {
-            // Prevent badges from overlapping visually and stack them on top
-            gsap.to(currentBadge, {
-              y: `-=${overlapY}`, // Move current badge up to avoid overlap
-              duration: 0.2,
-            });
-            // Update zIndex to ensure the badge on top stays in front
-            gsap.to(currentBadge, {
-              zIndex: Math.max(
-                parseInt(currentBadge.style.zIndex || "1", 10) + 1,
-                parseInt(otherBadge.style.zIndex || "1", 10) + 1
-              ),
-              duration: 0.2,
-            });
-          }
+    const walls = [
+      Bodies.rectangle(
+        400,
+        0,
+        !isMobile ? window.innerWidth * (90 / 100) : 1500,
+        10,
+        {
+          isStatic: true,
+          render: { visible: false }, // Invisible top wall
         }
+      ),
+      Bodies.rectangle(
+        400,
+        400,
+        !isMobile ? window.innerWidth * (90 / 100) : 1500,
+        10,
+        {
+          isStatic: true,
+          render: { visible: false }, // Invisible bottom wall
+        }
+      ),
+      Bodies.rectangle(0, 200, 10, 400, {
+        isStatic: true,
+        render: { visible: false }, // Invisible left wall
+      }),
+      Bodies.rectangle(!isMobile ? 1150 : 350, 300, 50, 600, {
+        isStatic: true,
+        render: { visible: false }, // Invisible right wall
+      }),
+    ];
+
+    World.add(engine.world, [...boxes, ...walls]);
+
+    // Draw text on the canvas using Matter.js render hooks
+    Events.on(render, "afterRender", () => {
+      const context = render.context;
+      context.font = "16px 'Sofia Sans', sans-serif"; // Use Sofia Sans font
+      context.fillStyle = "black";
+      context.textAlign = "center";
+      context.textBaseline = "middle";
+
+      // Draw the text for each box, ensuring the text stays horizontal
+      boxes.forEach((box) => {
+        const { x, y } = box.position;
+        const angle = box.angle;
+
+        // Save the current context to restore it after drawing the text
+        context.save();
+
+        // Translate the context to the box's position
+        context.translate(x, y);
+
+        // Rotate the context so the text stays horizontal despite the box's angle
+        context.rotate(angle);
+
+        // Draw the text (it will be horizontally aligned)
+        context.fillText(box.label, 0, 0);
+
+        // Restore the context to prevent further transformations
+        context.restore();
       });
+    });
+
+    // Add mouse control for interaction
+    const mouse = Mouse.create(render.canvas);
+    const mouseConstraint = MouseConstraint.create(engine, {
+      mouse,
+      constraint: {
+        stiffness: 0.2,
+        render: { visible: false },
+      },
+    });
+    World.add(engine.world, mouseConstraint);
+
+    // Run the engine and renderer
+    const runner = Runner.create();
+    Runner.run(runner, engine);
+    Render.run(render);
+
+    // Cleanup on unmount
+    const canvas = sceneRef.current.querySelector("canvas");
+    const handleWheel = (e: WheelEvent) => {
+      e.stopPropagation(); // Prevent blocking scroll
     };
 
-    // Enforce container bounds during animation
-    const enforceBounds = (badge: HTMLDivElement, containerBounds: DOMRect) => {
-      const badgeRect = badge.getBoundingClientRect();
+    // Add event listener for wheel events on the canvas
+    if (canvas) {
+      canvas.addEventListener("wheel", handleWheel, { passive: true });
+    }
 
-      if (badgeRect.bottom > containerBounds.bottom) {
-        gsap.to(badge, {
-          y: containerBounds.height - badge.offsetHeight - 10,
-          duration: 0.2,
-        });
+    // Cleanup on unmount
+    return () => {
+      if (canvas) {
+        canvas.removeEventListener("wheel", handleWheel);
       }
-      if (badgeRect.top < containerBounds.top) {
-        gsap.to(badge, { y: 10, duration: 0.2 });
-      }
-      if (badgeRect.left < containerBounds.left) {
-        gsap.to(badge, { x: 10, duration: 0.2 });
-      }
-      if (badgeRect.right > containerBounds.right) {
-        gsap.to(badge, {
-          x: containerBounds.width - badge.offsetWidth - 10,
-          duration: 0.2,
-        });
-      }
-    };
-
-    // Check if two elements are colliding
-    const isColliding = (rect1: DOMRect, rect2: DOMRect) => {
-      return !(
-        rect1.right < rect2.left ||
-        rect1.left > rect2.right ||
-        rect1.bottom < rect2.top ||
-        rect1.top > rect2.bottom
-      );
+      Render.stop(render);
+      Runner.stop(runner);
+      Engine.clear(engine);
+      render.canvas.remove();
+      render.textures = {};
     };
   }, []);
 
   return (
-    <div className="w-full container mx-auto p-8">
-      <MicroHeading text="Seamless integration" />
-      <div className="text-center mb-12 mt-6 max-w-2xl mx-auto">
-        <h2 className="text-3xl md:text-5xl font-bold text-[#1B4332] font-vesper">
-          Effortless Integration with Your Trusted Tools
-        </h2>
-      </div>
-
-      <div ref={containerRef} className="w-full h-[500px] relative">
-        {integrationItems.map((item, index) => (
+    <section className="py-16">
+      <div className="container px-4 mx-auto">
+        <MicroHeading text="Seamless integration" />
+        <div className="text-center mb-12 mt-6 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-5xl font-bold text-[#1B4332] font-vesper">
+            Effortless Integration with Your Trusted Tools
+          </h2>
+        </div>
+        <div className="flex items-center justify-center">
           <div
-            key={index}
-            ref={(el) => {
-              if (el) badgesRef.current[index] = el;
-            }}
-            className={`absolute ${item.color} text-black px-6 py-2 rounded-full shadow-sm  text-sm cursor-pointer overflow-hidden `}
-          >
-            {item.text}
-          </div>
-        ))}
+            ref={sceneRef}
+            className="mx-auto"
+            style={{ height: "400px" }} // Set the height here
+          />
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default InteractiveIntegrationLayout;
+export default Integrations;
