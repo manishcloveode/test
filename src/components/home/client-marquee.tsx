@@ -1,10 +1,21 @@
 import Marquee from "@/components/ui/marquee";
 import MicroHeading from "../common/micro-heading";
 
-const firstRow = [1, 2, 3, 4, 5, 6, 7];
+const clientsLogo = [
+  "/clients/client-1.svg",
+  "/clients/client-2.svg",
+  "/clients/client-3.svg",
+  "/clients/client-4.svg",
+  "/clients/client-5.svg",
+  "/clients/client-6.svg",
+  "/clients/client-7.svg",
+  "/clients/client-8.svg",
+  "/clients/client-9.svg",
+  "/clients/client-10.svg",
+];
 
-const ReviewCard = () => {
-  return <h1 className="uppercase px-6 font-sofia text-lg">Company’s Logo</h1>;
+const ReviewCard = ({ src }: { src: string }) => {
+  return <img src={src} className="px-6 h-16" />;
 };
 
 export function ClientMarquee() {
@@ -15,8 +26,8 @@ export function ClientMarquee() {
           <MicroHeading text="Trusted bY 300+ LEADING BUSINESS" />
         </div>
         <Marquee pauseOnHover className="[--duration:20s]">
-          {firstRow.map((review) => (
-            <ReviewCard key={review} />
+          {clientsLogo.map((img, index) => (
+            <ReviewCard src={img} key={index} />
           ))}
         </Marquee>
 
