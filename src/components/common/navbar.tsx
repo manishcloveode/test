@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { ChevronDown, CornerDownRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,7 +22,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6 font-sofia">
+        {/* <nav className="hidden md:flex items-center gap-6 font-sofia">
           <Link href="/" className="text-xl hover:text-site-green font-medium">
             Home
           </Link>
@@ -62,10 +62,10 @@ export default function Navbar() {
           >
             Pricing
           </Link>
-        </nav>
+        </nav> */}
 
         <div className="flex items-center gap-4">
-          <DropdownMenu>
+          {/* <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="outline"
@@ -80,13 +80,16 @@ export default function Navbar() {
               <DropdownMenuItem>EUR</DropdownMenuItem>
               <DropdownMenuItem>GBP</DropdownMenuItem>
             </DropdownMenuContent>
-          </DropdownMenu>
-          <Button variant="site-green">
+          </DropdownMenu> */}
+          <Link
+            href="#pricing"
+            className={buttonVariants({ variant: "site-green" })}
+          >
             Get Started <CornerDownRight />
-          </Button>
+          </Link>
 
           {/* Mobile Menu */}
-          <Sheet>
+          {/* <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
                 <Menu className="h-6 w-6" />
@@ -112,7 +115,7 @@ export default function Navbar() {
                 </Link>
               </nav>
             </SheetContent>
-          </Sheet>
+          </Sheet> */}
         </div>
       </div>
     </header>

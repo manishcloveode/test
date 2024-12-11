@@ -1,81 +1,207 @@
+"use client";
+import React, { useState, useEffect } from "react";
 import { Check, CornerLeftDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Switch } from "@/components/ui/switch";
 import MicroHeading from "../common/micro-heading";
 
+// Types for API response
+interface PriceDetail {
+  currency: string;
+  amount: number;
+  _id: string;
+}
+
+interface Feature {
+  name: string;
+  value: number;
+  _id: string;
+}
+
+interface Offer {
+  startDate: string;
+  endDate: string;
+  type: string;
+  value: string;
+}
+
+interface SubscriptionPlan {
+  _id: string;
+  name: string;
+  frequency: "Monthly" | "Yearly";
+  price: PriceDetail[];
+  is_trial: boolean;
+  trial_duration: number;
+  features: Feature[];
+  is_hidden: boolean;
+  description: string;
+  term_and_condition: string;
+  is_featured: boolean;
+  feature_lebel: string;
+  referral_percentage: number;
+  status: string;
+  slug: string;
+  offers: Offer;
+}
+
+interface ApiResponse {
+  message: string;
+  data: SubscriptionPlan[];
+  success: boolean;
+}
+
+// Types for component state
+type PlanVariant = "basic" | "popular" | "dark";
+type BillingFrequency = "monthly" | "yearly";
+
+interface ProcessedPlan {
+  name: string;
+  price: number;
+  description: string;
+  features: string[];
+  variant: PlanVariant;
+  buttonVariant: "default";
+  popular: boolean;
+}
+
+// Plan descriptions based on tier
+const planDescriptions: Record<string, string> = {
+  Starter:
+    "Perfect for small businesses starting their digital journey. Includes essential features for basic business communication.",
+  Intermediate:
+    "Ideal for growing businesses needing advanced features and higher message limits. Best value for most businesses.",
+  Advance:
+    "Enterprise-grade solution with maximum capabilities. Perfect for large-scale operations and high-volume messaging.",
+};
+
 export default function PricingSection() {
-  const plans = [
-    {
-      name: "Basic Plan",
-      price: "49.99",
-      description:
-        "nal keep pulling do shift i'm. elf-ware guys too high ensure. Shelf-ware am brainstorming see ensure. Shelf-ware",
-      features: [
-        "INR 0.82 Per Marketing Conversation",
-        "INR 0.35 Per Service/Utility/Auth Conversation",
-        "Email Support",
-        "Whatsapp Broadcast",
-        "Phone Support",
-      ],
-      variant: "basic",
-      buttonVariant: "default" as const,
-    },
-    {
-      name: "Advanced Plan",
-      price: "49.99",
-      description:
-        "nal keep pulling do shift i'm. elf-ware guys too high ensure. Shelf-ware am brainstorming see ensure. Shelf-ware",
-      features: [
-        "INR 0.82 Per Marketing Conversation",
-        "INR 0.35 Per Service/Utility/Auth Conversation",
-        "Email Support",
-        "Whatsapp Broadcast",
-        "Phone Support",
-      ],
-      variant: "popular",
-      buttonVariant: "default" as const,
-      popular: true,
-    },
-    {
-      name: "Starter Plan",
-      price: "49.99",
-      description:
-        "nal keep pulling do shift i'm. elf-ware guys too high ensure. Shelf-ware am brainstorming see ensure. Shelf-ware",
-      features: [
-        "INR 0.82 Per Marketing Conversation",
-        "INR 0.35 Per Service/Utility/Auth Conversation",
-        "Email Support",
-        "Whatsapp Broadcast",
-        "Phone Support",
-      ],
-      variant: "dark",
-      buttonVariant: "outline" as const,
-    },
-  ];
+  const [frequency, setFrequency] = useState<BillingFrequency>("monthly");
+  const [plans, setPlans] = useState<ProcessedPlan[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchPlans();
+  }, [frequency]);
+
+  const getVariant = (name: string): PlanVariant => {
+    switch (name.toLowerCase()) {
+      case "starter":
+        return "basic";
+      case "intermediate":
+        return "popular";
+      case "advance":
+        return "dark";
+      default:
+        return "basic";
+    }
+  };
+
+  const calculateYearlyPrice = (monthlyPrice: number): number => {
+    const yearlyPrice = monthlyPrice * 12;
+    const discount = yearlyPrice * 0.2; // 20% discount
+    return yearlyPrice - discount;
+  };
+
+  const fetchPlans = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(
+        `https://api.wabais.com/api/v1/subscription?frequency=${frequency}`
+      );
+      const data: ApiResponse = await response.json();
+
+      if (data.success) {
+        const processedPlans = data.data.map((plan) => ({
+          name: plan.name,
+          price: plan.price[0].amount,
+          description:
+            planDescriptions[plan.name] ||
+            plan.description ||
+            "Advanced features to supercharge your business communication",
+          features: plan.features.map((feature) => feature.name),
+          variant: getVariant(plan.name),
+          buttonVariant: "default" as const,
+          popular: plan.name === "Intermediate",
+        }));
+        console.log(processedPlans);
+        setPlans(processedPlans);
+      } else {
+        setError("Failed to fetch pricing plans");
+      }
+    } catch (error) {
+      setError("Error connecting to the server");
+      console.error("Error fetching plans:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (error) {
+    return (
+      <div className="text-center text-red-600 py-16">
+        <p className="text-lg">{error}</p>
+        <Button onClick={fetchPlans} className="mt-4">
+          Retry
+        </Button>
+      </div>
+    );
+  }
 
   return (
-    <section className="py-16">
+    <section id="pricing" className="py-16">
       <div className="container px-4 mx-auto">
         <MicroHeading text="Pricing" />
         <div className="text-center mb-12 mt-6 max-w-2xl mx-auto">
           <h2 className="text-3xl md:text-5xl font-bold text-[#1B4332] font-vesper">
             We have the best plan for you, Get started now!
           </h2>
+
+          <div className="flex items-center justify-center gap-4 mt-8">
+            <span
+              className={`text-lg font-medium font-sofia${
+                frequency === "monthly" ? "text-[#1B4332] " : "text-gray-500"
+              }`}
+            >
+              Monthly
+            </span>
+            <Switch
+              checked={frequency === "yearly"}
+              onCheckedChange={() =>
+                setFrequency((prev) =>
+                  prev === "monthly" ? "yearly" : "monthly"
+                )
+              }
+              className="bg-[#1B4332]"
+            />
+            <span
+              className={`text-lg font-medium font-sofia${
+                frequency === "yearly" ? "text-[#1B4332] " : "text-gray-500"
+              }`}
+            >
+              Yearly
+              <span className="ml-2 text-sm text-[#00D652] font-sofia">
+                Save 20%
+              </span>
+            </span>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
           {plans.map((plan, index) => (
-            <div key={index}>
+            <div key={index} className="flex flex-col min-h-[95%]">
               {plan.popular && (
                 <div className="flex justify-center w-full bg-site-green h-[100px] rounded-3xl mb-[-10%]">
-                  <div className=" text-white flex font-sofia text-xl gap-2 mt-4 justify-center">
+                  <div className="text-white flex font-sofia text-xl gap-2 mt-4 justify-center">
                     Popular <CornerLeftDown />
                   </div>
                 </div>
               )}
               <Card
-                className={`relative rounded-3xl ${
+                className={`relative rounded-3xl flex-1 ${
                   plan.variant === "popular"
                     ? "bg-[#1B4332] text-white border-none"
                     : plan.variant === "dark"
@@ -99,11 +225,13 @@ export default function PricingSection() {
                 <CardContent className="space-y-6">
                   <div>
                     <div className="flex items-baseline">
-                      <span className="text-4xl font-medium font-sofia">$</span>
+                      <span className="text-4xl font-medium font-sofia">₹</span>
                       <span className="text-4xl font-medium font-sofia">
                         {plan.price}
                       </span>
-                      <span className="ml-1 font-sofia text-lg">permonth</span>
+                      <span className="ml-1 font-sofia text-lg">
+                        /{frequency === "yearly" ? "year" : "month"}
+                      </span>
                     </div>
                     <p className="mt-2 text-lg opacity-80 font-sofia">
                       {plan.description}
@@ -118,7 +246,7 @@ export default function PricingSection() {
                         : "bg-black text-white hover:bg-black/90"
                     }`}
                   >
-                    Buy Plan
+                    Get Started
                   </Button>
                   <ul className="space-y-3">
                     {plan.features.map((feature, featureIndex) => (
@@ -129,10 +257,8 @@ export default function PricingSection() {
                         <Check
                           className={
                             plan.variant === "popular"
-                              ? "text-site-green bg-[#FBC02D] p-1 rounded-full h-6 w-6 "
-                              : plan.variant === "basic"
-                              ? "text-white bg-site-green p-1 rounded-full h-6 w-6 "
-                              : "text-white bg-site-green p-1 rounded-full h-6 w-6 "
+                              ? "text-site-green bg-[#FBC02D] p-1 rounded-full h-6 w-6"
+                              : "text-white bg-site-green p-1 rounded-full h-6 w-6"
                           }
                         />
                         {feature}

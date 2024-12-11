@@ -25,7 +25,7 @@ export function ClientMarquee() {
         <div className="mb-6">
           <MicroHeading text="Trusted bY 300+ LEADING BUSINESS" />
         </div>
-        <Marquee pauseOnHover className="[--duration:20s]">
+        <Marquee pauseOnHover className="[--duration:90s]">
           {clientsLogo.map((img, index) => (
             <ReviewCard src={img} key={index} />
           ))}

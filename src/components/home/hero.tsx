@@ -1,7 +1,8 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Check, CornerDownRight } from "lucide-react";
 import MicroHeading from "../common/micro-heading";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -66,18 +67,23 @@ export default function Hero() {
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
-            <Button
-              variant="site-green"
-              className="text-xl py-6 px-5 shadow-2xl shadow-[#0C71334F]"
+            <Link
+              href="#pricing"
+              className={`${buttonVariants({
+                variant: "site-green",
+              })} text-xl py-6 px-5 shadow-2xl shadow-[#0C71334F]`}
             >
               Get Started <CornerDownRight />
-            </Button>
-            <Button
-              variant="default"
-              className="text-xl py-6 px-5 shadow-2xl shadow-black/90"
+            </Link>
+
+            <Link
+              href="#pricing"
+              className={`${buttonVariants({
+                variant: "default",
+              })} text-xl py-6 px-5 shadow-2xl shadow-black/90`}
             >
-              Our Pricing
-            </Button>
+              Our Pricing <CornerDownRight />
+            </Link>
           </div>
         </div>
       </div>

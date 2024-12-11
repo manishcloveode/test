@@ -58,7 +58,7 @@ export default function WhyChooseUs() {
           {features.map((feature, index) => (
             <Card
               key={index}
-              className="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow bg-transparent border-site-green"
+              className="border rounded-lg overflow-hidden hover:shadow-2xl hover:shadow-site-green/50 bg-white transition-shadow border-site-green"
             >
               <CardContent className="p-6">
                 <div className="rounded-lg  mb-4">
