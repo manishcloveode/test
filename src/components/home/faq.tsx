@@ -82,7 +82,12 @@ export default function FAQSection() {
           </div>
 
           <div className="p-4">
-            <Accordion type="single" collapsible className="space-y-2">
+            <Accordion
+              defaultValue="item-0"
+              type="single"
+              collapsible
+              className="space-y-2"
+            >
               {faqs.map((faq, index) => (
                 <AccordionItem
                   key={index}
