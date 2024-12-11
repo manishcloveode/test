@@ -50,7 +50,7 @@ export default function TestimonialsSection() {
         </div>
 
         <div className="w-full ">
-          <Carousel className="w-full p-4 rounded-3xl p-4 bg-[#EBEBEB]">
+          <Carousel className="w-full p-4 rounded-3xl bg-[#EBEBEB]">
             <CarouselContent className="-ml-2 md:-ml-4 ">
               {testimonials.map((testimonial, index) => (
                 <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2">
@@ -94,8 +94,8 @@ export default function TestimonialsSection() {
               ))}
             </CarouselContent>
             <div className="flex justify-center gap-2 mt-8">
-              <CarouselPrevious className="relative static" />
-              <CarouselNext className="relative static" />
+              <CarouselPrevious className=" static" />
+              <CarouselNext className=" static" />
             </div>
           </Carousel>
         </div>
