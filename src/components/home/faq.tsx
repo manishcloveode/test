@@ -2,8 +2,6 @@
 
 import {
   HelpCircle,
-  Plus,
-  Minus,
   ThumbsUp,
   ThumbsDown,
   ChevronsLeft,
