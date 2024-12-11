@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import BlogSection from "@/components/home/blogs";
+// import BlogSection from "@/components/home/blogs";
 import { ClientMarquee } from "@/components/home/client-marquee";
 import CTASection from "@/components/home/cta";
 import FAQSection from "@/components/home/faq";
@@ -28,7 +28,7 @@ export default function Home() {
       <PricingSection />
       <TestimonialsSection />
       <FAQSection />
-      <BlogSection />
+      {/* <BlogSection /> */}
       <CTASection />
     </>
   );

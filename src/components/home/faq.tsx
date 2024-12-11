@@ -19,22 +19,22 @@ const faqs = [
   {
     question: "What is WABAIS?",
     answer:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut consequat eros. Sed ut convallis tellus, at semper nulla. Pellentesque tellus odio, fringilla sed mi vel, maximus gravida diam.",
+      "WABAIS is a WhatsApp API service that enables businesses to integrate WhatsApp messaging into their applications. It allows businesses to send and receive messages with customers, manage interactions, and enhance customer support and engagement on WhatsApp.",
   },
   {
-    question: "Question 2?",
+    question: "How do I get started with WABAIS?",
     answer:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut consequat eros. Sed ut convallis tellus, at semper nulla.",
+      "Getting started with WABAIS is easy! Sign up for an account, get your API key, and follow our integration guides to add WhatsApp messaging capabilities to your app. You can use our detailed documentation to set up automated responses, manage conversations, and more.",
   },
   {
-    question: "Question 3?",
+    question: "Is WABAIS suitable for small businesses?",
     answer:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut consequat eros. Sed ut convallis tellus, at semper nulla.",
+      "Yes, WABAIS is perfect for small businesses looking to improve customer communication. With flexible plans and scalable features, you can start small and grow as your needs evolve, all while offering real-time customer support through WhatsApp.",
   },
   {
-    question: "What is the Pricing like?",
+    question: "How secure is WABAIS?",
     answer:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut consequat eros. Sed ut convallis tellus, at semper nulla.",
+      "WABAIS is built with security in mind. We use industry-standard encryption to ensure your messages are secure. We also comply with data protection regulations, ensuring that your customers' privacy is always respected.",
   },
 ];
 

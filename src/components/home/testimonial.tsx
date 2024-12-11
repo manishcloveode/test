@@ -10,27 +10,27 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 import MicroHeading from "@/components/common/micro-heading";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const testimonials = [
   {
-    text: "WABAIS has completely transformed our sales process. With faster response times and personalized communication, we've been able to close more deals and build stronger relationships with our clients. It's a must-have for any sales team",
-    author: "James Tucker",
-    role: "Sales Manager at NextGen Solutions",
+    text: "WABAIS has transformed how we connect with our customers. Our response times have improved significantly, and our customers love being able to reach us on WhatsApp. The setup was easy, and customer support has been fantastic!",
+    author: "Arun Mehta",
+    role: "Sales Manager at Avancer Labs",
     avatar: "/placeholder.svg",
     rating: 5,
   },
   {
-    text: "WABAIS has completely transformed our sales process. With faster response times and personalized communication, we've been able to close more deals and build stronger relationships with our clients. It's a must-have for any sales team",
-    author: "James Tucker",
-    role: "Sales Manager at NextGen Solutions",
+    text: "Integrating WhatsApp with our business through WABAIS has been a game-changer. We've seen a boost in engagement and sales thanks to seamless communication. The platform is intuitive and easy to manage!",
+    author: "Rohit Jamwal",
+    role: "Business Developer at Avani Paridhi",
     avatar: "/placeholder.svg",
     rating: 5,
   },
   {
-    text: "WABAIS has completely transformed our sales process. With faster response times and personalized communication, we've been able to close more deals and build stronger relationships with our clients. It's a must-have for any sales team",
-    author: "James Tucker",
-    role: "Sales Manager at NextGen Solutions",
+    text: "As a travel agency, we needed a reliable and fast way to communicate with our clients. WABAIS has made it so much easier to manage bookings and provide real-time support. It's been a great addition to our operations!",
+    author: "Abhi Dogra",
+    role: "Social Media Manager at Raftaar Media",
     avatar: "/placeholder.svg",
     rating: 5,
   },
@@ -61,13 +61,13 @@ export default function TestimonialsSection() {
                         {testimonial.text}
                       </blockquote>
                       <div className="flex items-center gap-4">
-                        <Avatar>
+                        {/* <Avatar>
                           <AvatarImage
                             src="https://github.com/shadcn.png"
                             alt="@shadcn"
                           />
                           <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
+                        </Avatar> */}
 
                         <div>
                           <div className="font-semibold">

@@ -79,7 +79,6 @@ const planDescriptions: Record<string, string> = {
 export default function PricingSection() {
   const [frequency, setFrequency] = useState<BillingFrequency>("monthly");
   const [plans, setPlans] = useState<ProcessedPlan[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -99,14 +98,7 @@ export default function PricingSection() {
     }
   };
 
-  const calculateYearlyPrice = (monthlyPrice: number): number => {
-    const yearlyPrice = monthlyPrice * 12;
-    const discount = yearlyPrice * 0.2; // 20% discount
-    return yearlyPrice - discount;
-  };
-
   const fetchPlans = async () => {
-    setIsLoading(true);
     setError(null);
     try {
       const response = await fetch(
@@ -135,8 +127,6 @@ export default function PricingSection() {
     } catch (error) {
       setError("Error connecting to the server");
       console.error("Error fetching plans:", error);
-    } finally {
-      setIsLoading(false);
     }
   };
 

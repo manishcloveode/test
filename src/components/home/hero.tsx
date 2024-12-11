@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Check, CornerDownRight } from "lucide-react";
 import MicroHeading from "../common/micro-heading";
 import Link from "next/link";

@@ -1,7 +1,8 @@
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import MicroHeading from "@/components/common/micro-heading";
 import { CornerDownRight } from "lucide-react";
 import RetroGrid from "@/components/ui/retro-grid";
+import Link from "next/link";
 
 export default function CTASection() {
   return (
@@ -20,12 +21,18 @@ export default function CTASection() {
             Explore a new dimension of customer engagement with WABAIS powerful
             WhatsApp Business API solutions.
           </p>
-          <Button
+          {/* <Button
             variant="site-green"
             className="text-xl py-6 px-5 shadow-2xl shadow-[#0C71334F]"
           >
             Contact Us <CornerDownRight />
-          </Button>
+          </Button> */}
+          <Link
+            href="#pricing"
+            className={buttonVariants({ variant: "site-green" })}
+          >
+            Our Pricing <CornerDownRight />
+          </Link>
         </div>
         <RetroGrid />
       </div>
