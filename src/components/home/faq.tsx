@@ -93,15 +93,13 @@ export default function FAQSection() {
                 >
                   <AccordionTrigger className="hover:no-underline py-4">
                     <div className="flex justify-between items-center w-full">
-                      <span className="font-semibold text-left">
+                      <span className="font-semibold text-left text-lg font-sofia">
                         {faq.question}
                       </span>
-                      <Plus className="h-4 w-4 shrink-0 transition-transform duration-200 group-data-[state=open]:hidden" />
-                      <Minus className="h-4 w-4 shrink-0 transition-transform duration-200 hidden group-data-[state=open]:block" />
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="pt-2 pb-4">
-                    <p className="text-gray-600 mb-4">{faq.answer}</p>
+                    <p className="font-md font-sofia mb-4">{faq.answer}</p>
                     <div className="flex items-center gap-2 text-sm text-gray-500">
                       <span>Was this helpful?</span>
                       <button className="p-1 hover:bg-gray-100 rounded">
