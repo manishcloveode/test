@@ -2,12 +2,12 @@
 import React, { useState, useEffect } from "react";
 import { Check, CornerLeftDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import MicroHeading from "../common/micro-heading";
+import Link from "next/link";
 
-// Types for API response
 interface PriceDetail {
   currency: string;
   amount: number;
@@ -52,11 +52,11 @@ interface ApiResponse {
   success: boolean;
 }
 
-// Types for component state
 type PlanVariant = "basic" | "popular" | "dark";
 type BillingFrequency = "monthly" | "yearly";
 
 interface ProcessedPlan {
+  id: string;
   name: string;
   price: number;
   description: string;
@@ -64,9 +64,9 @@ interface ProcessedPlan {
   variant: PlanVariant;
   buttonVariant: "default";
   popular: boolean;
+  offers: Offer;
 }
 
-// Plan descriptions based on tier
 const planDescriptions: Record<string, string> = {
   Starter:
     "Perfect for small businesses starting their digital journey. Includes essential features for basic business communication.",
@@ -108,6 +108,7 @@ export default function PricingSection() {
 
       if (data.success) {
         const processedPlans = data.data.map((plan) => ({
+          id: plan._id,
           name: plan.name,
           price: plan.price[0].amount,
           description:
@@ -118,6 +119,7 @@ export default function PricingSection() {
           variant: getVariant(plan.name),
           buttonVariant: "default" as const,
           popular: plan.name === "Intermediate",
+          offers: plan.offers,
         }));
         console.log(processedPlans);
         setPlans(processedPlans);
@@ -215,20 +217,44 @@ export default function PricingSection() {
                 <CardContent className="space-y-6">
                   <div>
                     <div className="flex items-baseline">
+                      {+plan.offers.value > 1 && (
+                        <>
+                          <span className="text-2xl font-medium font-sofia">
+                            ₹
+                          </span>
+                          <span className="text-2xl font-medium font-sofia line-through mr-2">
+                            {plan.price}
+                          </span>
+                        </>
+                      )}
                       <span className="text-4xl font-medium font-sofia">₹</span>
                       <span className="text-4xl font-medium font-sofia">
-                        {plan.price}
+                        {+plan.offers.value > 1
+                          ? plan.offers.type === "Percentage"
+                            ? (plan.price * +plan.offers.value) / 100
+                            : plan.price - +plan.offers.value
+                          : plan.price}
                       </span>
                       <span className="ml-1 font-sofia text-lg">
                         /{frequency === "yearly" ? "year" : "month"}
                       </span>
                     </div>
+                    {plan.offers && (
+                      <div className="mt-2 text-md font-sofia font-semibold">
+                        {plan.offers.type === "Percentage"
+                          ? `New Year Offer: ${plan.offers.value}% off!`
+                          : `Flat ₹${plan.offers.value} off!`}
+                      </div>
+                    )}
                     <p className="mt-2 text-lg opacity-80 font-sofia">
                       {plan.description}
                     </p>
                   </div>
-                  <Button
-                    className={`w-full ${
+                  <Link
+                    href={`https://wp.wabais.com/sign-up?${plan.id}`}
+                    className={`${buttonVariants({
+                      variant: "link",
+                    })} w-full ${
                       plan.variant === "popular"
                         ? "bg-[#00D652] hover:bg-[#00B37E]/90 text-black"
                         : plan.variant === "dark"
@@ -237,7 +263,7 @@ export default function PricingSection() {
                     }`}
                   >
                     Get Started
-                  </Button>
+                  </Link>
                   <ul className="space-y-3">
                     {plan.features.map((feature, featureIndex) => (
                       <li
