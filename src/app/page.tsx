@@ -11,11 +11,11 @@ import WhyChooseUs from "@/components/home/why-choose-us";
 
 export const metadata: Metadata = {
   title:
-    "WABAIS - Empower Your Business with WhatsApp Business API & Chatbot Solutions",
+    "Exclusive Offers on WhatsApp Business API & Chatbot Solutions – Transform Your Business",
   description:
-    "Leverage the power of WhatsApp Business API and intelligent chatbots to transform customer engagement. Streamline support, automate interactions, and boost sales with personalized messaging solutions tailored to your needs.",
+    "Unlock amazing deals on WhatsApp Business API and intelligent chatbot solutions! Enhance customer engagement, automate interactions, and drive sales with our exclusive offers. Great offers on WhatsApp Business API. Free WhatsApp Business API.",
   keywords:
-    "WhatsApp Business API, WhatsApp Chatbot, WhatsApp Integration, Customer Engagement, Business Automation, WhatsApp Marketing, AI Chatbot for WhatsApp, Messaging API, WhatsApp for Business, Chatbot Solutions",
+    "WhatsApp Business API offers, WhatsApp Chatbot deals, exclusive WhatsApp API discounts, WhatsApp Integration promotions, chatbot offers, business automation deals, WhatsApp marketing discounts, AI chatbot solutions, special business offers, WhatsApp customer engagement, Free WhatsApp API, Free WhatsApp Api provider, Best WhatsApp Business API, Best WhatsApp API Provider",
 };
 
 export default function Home() {
