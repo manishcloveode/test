@@ -66,7 +66,7 @@ export default function Hero() {
 
           <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
             <Link
-              href="#pricing"
+              href="/pricing"
               className={`${buttonVariants({
                 variant: "site-green",
               })} text-xl py-6 px-5 shadow-2xl shadow-[#0C71334F]`}
@@ -75,7 +75,7 @@ export default function Hero() {
             </Link>
 
             <Link
-              href="#pricing"
+              href="/pricing"
               className={`${buttonVariants({
                 variant: "default",
               })} text-xl py-6 px-5 shadow-2xl shadow-black/90`}

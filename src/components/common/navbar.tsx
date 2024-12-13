@@ -2,15 +2,15 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { CornerDownRight } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
+import { CornerDownRight, Menu } from "lucide-react";
+import { Button, buttonVariants } from "@/components/ui/button";
 // import {
 //   DropdownMenu,
 //   DropdownMenuContent,
 //   DropdownMenuItem,
 //   DropdownMenuTrigger,
 // } from "@/components/ui/dropdown-menu";
-// import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 // import { Menu } from "lucide-react";
 
 export default function Navbar() {
@@ -22,11 +22,17 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        {/* <nav className="hidden md:flex items-center gap-6 font-sofia">
+        <nav className="hidden md:flex items-center gap-6 font-sofia">
           <Link href="/" className="text-xl hover:text-site-green font-medium">
             Home
           </Link>
-          <DropdownMenu>
+          <Link
+            href="/about"
+            className="text-xl hover:text-site-green font-medium"
+          >
+            About
+          </Link>
+          {/* <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-1 text-xl hover:text-site-green font-medium">
               Company <ChevronDown className="h-4 w-4" />
             </DropdownMenuTrigger>
@@ -55,14 +61,20 @@ export default function Navbar() {
               <DropdownMenuItem>SDKs</DropdownMenuItem>
               <DropdownMenuItem>Plugins</DropdownMenuItem>
             </DropdownMenuContent>
-          </DropdownMenu>
+          </DropdownMenu> */}
           <Link
             href="/pricing"
             className="text-xl hover:text-site-green font-medium"
           >
             Pricing
           </Link>
-        </nav> */}
+          <Link
+            href="/contact"
+            className="text-xl hover:text-site-green font-medium"
+          >
+            contact
+          </Link>
+        </nav>
 
         <div className="flex items-center gap-4">
           {/* <DropdownMenu>
@@ -82,14 +94,14 @@ export default function Navbar() {
             </DropdownMenuContent>
           </DropdownMenu> */}
           <Link
-            href="#pricing"
+            href="/pricing"
             className={buttonVariants({ variant: "site-green" })}
           >
             Get Started <CornerDownRight />
           </Link>
 
           {/* Mobile Menu */}
-          {/* <Sheet>
+          <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
                 <Menu className="h-6 w-6" />
@@ -101,21 +113,21 @@ export default function Navbar() {
                 <Link href="/" className="text-sm font-medium">
                   Home
                 </Link>
-                <Link href="#" className="text-sm font-medium">
-                  Company
-                </Link>
-                <Link href="#" className="text-sm font-medium">
-                  WABAIS For
-                </Link>
-                <Link href="#" className="text-sm font-medium">
-                  Integration
+                <Link href="/about" className="text-sm font-medium">
+                  About
                 </Link>
                 <Link href="/pricing" className="text-sm font-medium">
                   Pricing
                 </Link>
+                <Link href="/contact" className="text-sm font-medium">
+                  Contact
+                </Link>
+                {/* <Link href="#" className="text-sm font-medium">
+                  WABAIS For
+                </Link> */}
               </nav>
             </SheetContent>
-          </Sheet> */}
+          </Sheet>
         </div>
       </div>
     </header>

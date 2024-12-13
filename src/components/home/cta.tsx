@@ -28,7 +28,7 @@ export default function CTASection() {
             Contact Us <CornerDownRight />
           </Button> */}
           <Link
-            href="#pricing"
+            href="/pricing"
             className={buttonVariants({ variant: "site-green" })}
           >
             Our Pricing <CornerDownRight />
