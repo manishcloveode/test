@@ -8,8 +8,6 @@ export default function Hero() {
   return (
     <div className="relative bg-[#fbfffc]">
       <div className="relative min-h-[60vh] md:min-h-[80vh] flex items-center justify-center px-4  container mx-auto">
-        {/* Left Side */}
-
         <Badge className="animate-wiggle absolute hidden md:flex top-[8%] left-[10%] items-center gap-2 font-sofia text-lg rounded-3xl py-2 bg-transparent border border-site-green text-site-green hover:bg-transparent">
           <span className="bg-site-green text-white rounded-full p-1">
             <Check className="h-4 w-4" />

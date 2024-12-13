@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 // import BlogSection from "@/components/home/blogs";
-import { ClientMarquee } from "@/components/home/client-marquee";
+import { ClientMarquee } from "@/components/common/client-marquee";
 import CTASection from "@/components/home/cta";
 import FAQSection from "@/components/home/faq";
 import Hero from "@/components/home/hero";
 import Integrations from "@/components/home/integration";
 import PricingSection from "@/components/home/pricing";
-import TestimonialsSection from "@/components/home/testimonial";
+import TestimonialsSection from "@/components/common/testimonial";
 import WhyChooseUs from "@/components/home/why-choose-us";
 
 export const metadata: Metadata = {

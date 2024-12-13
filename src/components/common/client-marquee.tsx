@@ -21,7 +21,7 @@ const ReviewCard = ({ src }: { src: string }) => {
 export function ClientMarquee() {
   return (
     <>
-      <div className="relative flex w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background md:shadow-xl py-12">
+      <div className="relative flex w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background py-12">
         <div className="mb-6">
           <MicroHeading text="Trusted bY 300+ LEADING BUSINESS" />
         </div>
