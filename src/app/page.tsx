@@ -5,7 +5,7 @@ import CTASection from "@/components/home/cta";
 import FAQSection from "@/components/home/faq";
 import Hero from "@/components/home/hero";
 import Integrations from "@/components/home/integration";
-import PricingSection from "@/components/home/pricing";
+import PricingSection from "@/components/common/pricing";
 import TestimonialsSection from "@/components/common/testimonial";
 import WhyChooseUs from "@/components/home/why-choose-us";
 

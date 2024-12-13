@@ -7,13 +7,13 @@ import TestimonialsSection from "@/components/common/testimonial";
 
 export default function About() {
   return (
-    <main className="min-h-screen">
+    <>
       <Header />
       <ClientMarquee />
       <ImpactSection />
       <LeaderSection />
       <TestimonialsSection />
       <CTASection />
-    </main>
+    </>
   );
 }

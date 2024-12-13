@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Facebook, Twitter, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MicroHeading from "../common/micro-heading";
@@ -39,8 +38,8 @@ export function LeaderSection() {
                 and innovation, Ashish has been instrumental in guiding Wabais
                 to become a trusted provider of WhatsApp Business API solutions.
                 His strategic insights and commitment to excellence continue to
-                drive the company's growth and success in empowering businesses
-                worldwide.
+                drive the company&apos;s growth and success in empowering
+                businesses worldwide.
               </p>
               <div className="flex gap-4">
                 <Button variant="outline" className="rounded-md" size="icon">
