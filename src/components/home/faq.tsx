@@ -52,7 +52,7 @@ export default function FAQSection() {
                 </span>
                 <ChevronsRight />
               </div>
-              <div className="text-start mb-12 mt-6 max-w-2xl mx-auto">
+              <div className="text-start mb-12 mt-6 max-w-2xl ">
                 <h2 className="text-3xl md:text-5xl font-bold text-[#1B4332] font-vesper">
                   Most frequently asked questions
                 </h2>
