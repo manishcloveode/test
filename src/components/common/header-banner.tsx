@@ -16,7 +16,7 @@ export default function HeaderBanner({
   return (
     <header className={`relative w-full ${height} overflow-hidden`}>
       <Image
-        src={backgroundImage}
+        src={backgroundImage || "/img/team.webp"}
         alt={`${pageName} background`}
         layout="fill"
         objectFit="cover"

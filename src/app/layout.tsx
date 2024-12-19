@@ -3,6 +3,7 @@ import Navbar from "@/components/common/navbar";
 import Footer from "@/components/common/footer";
 import { Vesper_Libre, Sofia_Sans } from "next/font/google";
 import Head from "next/head";
+import WhatsAppButton from "@/components/common/whatsapp-button";
 
 const vesperLibre = Vesper_Libre({
   subsets: ["latin"],
@@ -46,6 +47,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
+        <WhatsAppButton />
       </body>
     </html>
   );

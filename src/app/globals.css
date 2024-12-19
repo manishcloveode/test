@@ -74,3 +74,35 @@ html {
     @apply bg-background text-foreground;
   }
 }
+
+.whatsappFloat {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  text-decoration: none;
+  background-color: #25d366;
+  border-radius: 50px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+.whatsappFloat:hover {
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+  transform: scale(1.1);
+}
+
+.whatsappIcon {
+  margin-right: 10px;
+}
+
+.whatsappText {
+  white-space: nowrap;
+}
