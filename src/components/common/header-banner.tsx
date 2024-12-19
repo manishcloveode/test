@@ -1,7 +1,3 @@
-"use client";
-
-import Image from "next/image";
-
 interface HeaderBannerProps {
   pageName: string;
   backgroundImage: string;
@@ -15,13 +11,10 @@ export default function HeaderBanner({
 }: HeaderBannerProps) {
   return (
     <header className={`relative w-full ${height} overflow-hidden`}>
-      <Image
-        src={backgroundImage || "/img/team.webp"}
+      <img
+        src={backgroundImage}
         alt={`${pageName} background`}
-        layout="fill"
-        objectFit="cover"
-        quality={100}
-        priority
+        className="object-cover"
       />
       <div className="absolute inset-0 bg-black bg-opacity-50" />
       <div className="absolute inset-0 flex items-center justify-center">
