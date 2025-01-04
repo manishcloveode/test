@@ -251,7 +251,7 @@ export default function PricingSection() {
                     </p>
                   </div>
                   <Link
-                    href={`https://wp.wabais.com/sign-up?${plan.id}`}
+                    href={`https://wp.wabais.com/sign-up?plan_id=${plan.id}`}
                     className={`${buttonVariants({
                       variant: "link",
                     })} w-full ${

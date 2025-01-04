@@ -4,6 +4,7 @@ import Footer from "@/components/common/footer";
 import { Vesper_Libre, Sofia_Sans } from "next/font/google";
 import Head from "next/head";
 import WhatsAppButton from "@/components/common/whatsapp-button";
+import Script from "next/script";
 
 const vesperLibre = Vesper_Libre({
   subsets: ["latin"],
@@ -40,6 +41,22 @@ export default function RootLayout({
         />
         <meta name="apple-mobile-web-app-title" content="MyWebSite" />
         <link rel="manifest" href="/site.webmanifest" />
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-H15BTXWM49"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-H15BTXWM49');
+          `,
+          }}
+        />
       </Head>
       <body
         className={`${vesperLibre.variable} ${sofiaSans.variable} antialiased`}
