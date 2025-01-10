@@ -68,6 +68,83 @@ export default function Navbar() {
           >
             Pricing
           </Link>
+          <div className="relative group">
+            <Link
+              href="/#"
+              className="text-xl hover:text-site-green font-medium"
+            >
+              WABAIS For
+            </Link>
+            <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md mt-2">
+              <ul className="py-2">
+                <li>
+                  <Link
+                    href="/option1"
+                    className="block px-4 py-2 text-gray-700 hover:bg-site-green hover:text-white"
+                  >
+                    Option 1
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/option2"
+                    className="block px-4 py-2 text-gray-700 hover:bg-site-green hover:text-white"
+                  >
+                    Option 2
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/option3"
+                    className="block px-4 py-2 text-gray-700 hover:bg-site-green hover:text-white"
+                  >
+                    Option 3
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/option4"
+                    className="block px-4 py-2 text-gray-700 hover:bg-site-green hover:text-white"
+                  >
+                    Option 4
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/option5"
+                    className="block px-4 py-2 text-gray-700 hover:bg-site-green hover:text-white"
+                  >
+                    Option 5
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/option6"
+                    className="block px-4 py-2 text-gray-700 hover:bg-site-green hover:text-white"
+                  >
+                    Option 6
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/option7"
+                    className="block px-4 py-2 text-gray-700 hover:bg-site-green hover:text-white"
+                  >
+                    Option 7
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/option8"
+                    className="block px-4 py-2 text-gray-700 hover:bg-site-green hover:text-white"
+                  >
+                    Option 8
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+
           <Link
             href="/contact"
             className="text-xl hover:text-site-green font-medium"
