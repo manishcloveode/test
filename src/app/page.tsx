@@ -9,6 +9,7 @@ import PricingSection from "@/components/common/pricing";
 import TestimonialsSection from "@/components/common/testimonial";
 import WhyChooseUs from "@/components/home/why-choose-us";
 
+
 export const metadata: Metadata = {
   title:
     "Exclusive Offers on WhatsApp Business API & Chatbot Solutions – Transform Your Business",
@@ -30,6 +31,7 @@ export default function Home() {
       <FAQSection />
       {/* <BlogSection /> */}
       <CTASection />
+
     </>
   );
 }

@@ -41,6 +41,10 @@ export default function RootLayout({
         />
         <meta name="apple-mobile-web-app-title" content="MyWebSite" />
         <link rel="manifest" href="/site.webmanifest" />
+      </Head>
+      <body
+        className={`${vesperLibre.variable} ${sofiaSans.variable} antialiased`}
+      >
         <Script
           strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=G-H15BTXWM49"
@@ -57,10 +61,6 @@ export default function RootLayout({
           `,
           }}
         />
-      </Head>
-      <body
-        className={`${vesperLibre.variable} ${sofiaSans.variable} antialiased`}
-      >
         <Navbar />
         {children}
         <Footer />
